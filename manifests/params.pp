@@ -16,6 +16,18 @@ class awstats::params {
         }
       }
     }
+    'Debian': {
+      case $::operatingsystemmajrelease {
+        '8': {
+          $package_name     = 'awstats'
+          $config_dir_path  = '/etc/awstats'
+          $default_template = "${module_name}/awstats.conf.erb"
+        }
+        default: {
+          fail("Module ${module_name} is not supported on operatingsystemmajrelease ${::operatingsystemmajrelease}") # lint:ignore:80chars
+        }
+      }
+    }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }

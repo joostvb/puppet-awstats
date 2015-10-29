@@ -135,4 +135,30 @@ describe 'awstats', :type => :class do
       should raise_error Puppet::Error, /not supported on Solaris/
     end
   end # on osfamily Solaris
+
+  context 'on osfamily Debian' do
+    let(:facts) do
+      {
+        :osfamily                  => 'Debian',
+        :operatingsystem           => 'Debian',
+        :operatingsystemmajrelease => '8',
+      }
+    end
+
+    context 'default params' do
+      it { should contain_package('awstats') }
+
+      it do
+        should contain_file('/etc/awstats').with(
+          :ensure  => 'directory',
+          :owner   => 'root',
+          :group   => 'root',
+          :mode    => '0755',
+          :recurse => true,
+          :purge   => false
+        )
+      end
+      it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
+    end # default params
+  end # on osfamily Debian
 end
