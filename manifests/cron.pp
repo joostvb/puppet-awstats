@@ -1,7 +1,7 @@
 # == Define: awstats::cron
 #
 define awstats::cron(
-  $crontab_manage   = true,
+  $crontab_manage   = rue,
   $crontab_manage_buildstatic = undef,
   $crontab_update = ['*/10', absent, absent, absent, absent]
   $crontab_buildstatic = ['10', '03', absent, absent, absent]
@@ -13,7 +13,7 @@ define awstats::cron(
 
   if $crontab_manage == false {
     if $crontab_manage_buildstatic == true {
-      warning("Adding cron entry for building static pages, but original cron entry was not purged (crontab_manage=false). Possible duplicate cron entries.")
+      warning('Adding cron entry for building static pages, but original cron entry was not purged (crontab_manage=false). Possible duplicate cron entries.')
     }
   }
 
@@ -24,14 +24,14 @@ define awstats::cron(
   }
 
   $_ensure_crontab_update = $crontab_manage ? {
-    'true'  =>  'ensure',
-    'false' =>  'absent',
+    true  =>  'ensure',
+    false =>  'absent',
     default =>  'absent',
   }
 
   $_ensure_crontab_buildstatic = $_crontab_manage_buildstatic ? {
-    'true'  =>  'ensure',
-    'false' =>  'absent',
+    true  =>  'ensure',
+    false =>  'absent',
     default =>  'absent',
   }
 
