@@ -60,7 +60,7 @@ class awstats(
         weekday  =>  $crontab_weekday,
       }
       cron { 'awstats_buildstatic':
-        ensure   =>  $crontab_buildstatic,
+        ensure   =>  $crontab_buildstatic ? { 'true' => present, 'false' => absent, }
         command  =>  $::awstats::params::awstats_buildstatic_command,
         user     =>  $::awstats::params::awstats_user,
         minute   =>  $crontab_buildstatic_minute,
