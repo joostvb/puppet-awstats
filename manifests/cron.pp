@@ -1,9 +1,9 @@
 # == Define: awstats::cron
 #
 define awstats::cron(
-  $crontab_manage   = rue,
+  $crontab_manage   = true,
   $crontab_manage_buildstatic = undef,
-  $crontab_update = ['*/10', absent, absent, absent, absent]
+  $crontab_update = ['*/10', absent, absent, absent, absent],
   $crontab_buildstatic = ['10', '03', absent, absent, absent]
 ) {
   validate_bool($crontab_manage)
