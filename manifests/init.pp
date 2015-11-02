@@ -25,5 +25,4 @@ class awstats(
       Class[$load] ->
         anchor { 'awstats::end': }
   }
-
 }
