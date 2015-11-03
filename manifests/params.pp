@@ -28,6 +28,7 @@ class awstats::params {
           $crontab_path                 = '/etc/cron.d/awstats'
           $awstats_update_command       = '[ -x /usr/share/awstats/tools/update.sh ] && /usr/share/awstats/tools/update.sh'
           $awstats_buildstatic_command  = '[ -x /usr/share/awstats/tools/buildstatic.sh ] && /usr/share/awstats/tools/buildstatic.sh'
+          $awstats_user                 = 'www-data'
         }
         default: {
           fail("Module ${module_name} is not supported on operatingsystemmajrelease ${::operatingsystemmajrelease}") # lint:ignore:80chars
