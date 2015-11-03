@@ -1,6 +1,6 @@
 # == Define: awstats::cron
 #
-define awstats::cron(
+class awstats::cron(
   $crontab_manage   = true,
   $crontab_manage_buildstatic = undef,
   $crontab_update = ['*/10', absent, absent, absent, absent],
@@ -24,13 +24,13 @@ define awstats::cron(
   }
 
   $_ensure_crontab_update = $crontab_manage ? {
-    true  =>  'ensure',
+    true  =>  'present',
     false =>  'absent',
     default =>  'absent',
   }
 
   $_ensure_crontab_buildstatic = $_crontab_manage_buildstatic ? {
-    true  =>  'ensure',
+    true  =>  'present',
     false =>  'absent',
     default =>  'absent',
   }
