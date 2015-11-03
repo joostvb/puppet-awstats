@@ -8,7 +8,7 @@ class awstats::plugin::geoip {
   }
 
   $package = $::osfamily ? {
-    'Debian'  =>  'libgeo-ip-perl',
+    'Debian'  =>  ['libgeo-ip-perl', 'libgeo-ipfree-perl'],
     'RedHat'  =>  'perl-Geo-IP',
   }
 
