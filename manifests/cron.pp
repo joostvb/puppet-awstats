@@ -24,24 +24,29 @@ class awstats::cron(
   }
 
   $_ensure_crontab_update = $crontab_manage ? {
-    true  =>  'present',
-    false =>  'absent',
+    true    =>  'present',
+    false   =>  'absent',
     default =>  'absent',
   }
 
+  $_ensure_crond_original = $crontab_manage ? {
+    true    =>  'absent',
+    false   =>  'present',
+    default =>  'present',
+  }
+
   $_ensure_crontab_buildstatic = $_crontab_manage_buildstatic ? {
-    true  =>  'present',
-    false =>  'absent',
+    true    =>  'present',
+    false   =>  'absent',
     default =>  'absent',
   }
 
   if $::awstats::params::crontab_path {
     file { $::awstats::params::crontab_path:
-      ensure =>  'file',
+      ensure =>  $_ensure_crond_original,
       owner  =>  'root',
       group  =>  'root',
-      mode   =>  '0755',
-      purge  =>  $crontab_manage,
+      mode   =>  '0644',
     }
     cron { 'awstats':
       ensure   =>  $_ensure_crontab_update,
